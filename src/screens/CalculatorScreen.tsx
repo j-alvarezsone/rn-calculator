@@ -38,7 +38,7 @@ const CalculatorScreen = () => {
       </View>
 
       <View style={styles.row}>
-        <CalcButton text="0" />
+        <CalcButton text="0" wide />
         <CalcButton text="." />
         <CalcButton text="/" color="#FF9427" />
       </View>

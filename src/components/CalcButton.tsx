@@ -1,29 +1,40 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 type Props = {
   text: string;
   color?: string;
-  width?: boolean;
+  wide?: boolean;
   action?: boolean;
   // onPress: (numberText: string) => void;
 };
 
-const CalcButton = ({text, color = '#2D2D2D'}: Props) => {
+const CalcButton = ({text, color = '#2D2D2D', wide = false}: Props) => {
   const textColor = () => {
     return color === '#9B9B9B' ? 'black' : 'white';
   };
 
+  const buttonWidth = () => {
+    return wide ? 174 : 75;
+  };
+
   return (
-    <View style={{...styles.button, backgroundColor: color}}>
-      <Text
+    <TouchableOpacity>
+      <View
         style={{
-          ...styles.buttonText,
-          color: textColor(),
+          ...styles.button,
+          backgroundColor: color,
+          width: buttonWidth(),
         }}>
-        {text}
-      </Text>
-    </View>
+        <Text
+          style={{
+            ...styles.buttonText,
+            color: textColor(),
+          }}>
+          {text}
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
