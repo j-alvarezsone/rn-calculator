@@ -3,36 +3,22 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 type Props = {
   text: string;
-  color?: string;
+  bgColor?: string;
   wide?: boolean;
-  action?: boolean;
+  action: (numberText: string) => void;
   // onPress: (numberText: string) => void;
 };
 
-const CalcButton = ({text, color = '#2D2D2D', wide = false}: Props) => {
-  const textColor = () => {
-    return color === '#9B9B9B' ? 'black' : 'white';
-  };
-
-  const buttonWidth = () => {
-    return wide ? 174 : 75;
-  };
-
+const CalcButton = ({
+  text,
+  bgColor = '#2D2D2D',
+  wide = false,
+  action,
+}: Props) => {
   return (
-    <TouchableOpacity>
-      <View
-        style={{
-          ...styles.button,
-          backgroundColor: color,
-          width: buttonWidth(),
-        }}>
-        <Text
-          style={{
-            ...styles.buttonText,
-            color: textColor(),
-          }}>
-          {text}
-        </Text>
+    <TouchableOpacity onPress={() => action(text)}>
+      <View style={styles(bgColor, wide).button}>
+        <Text style={styles(bgColor).buttonText}>{text}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -40,20 +26,21 @@ const CalcButton = ({text, color = '#2D2D2D', wide = false}: Props) => {
 
 export default CalcButton;
 
-const styles = StyleSheet.create({
-  button: {
-    height: 75,
-    width: 75,
-    backgroundColor: '#2D2D2D',
-    borderRadius: 100,
-    justifyContent: 'center',
-    marginHorizontal: 12,
-  },
-  buttonText: {
-    textAlign: 'center',
-    padding: 10,
-    fontSize: 30,
-    color: 'white',
-    fontWeight: '300',
-  },
-});
+const styles = (bgColor: string, wide?: boolean) =>
+  StyleSheet.create({
+    button: {
+      height: 75,
+      width: wide ? 174 : 75,
+      backgroundColor: bgColor,
+      borderRadius: 100,
+      justifyContent: 'center',
+      marginHorizontal: 12,
+    },
+    buttonText: {
+      textAlign: 'center',
+      padding: 10,
+      fontSize: 30,
+      color: bgColor === '#9B9B9B' ? 'black' : 'white',
+      fontWeight: '300',
+    },
+  });
