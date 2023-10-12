@@ -82,6 +82,32 @@ const CalculatorScreen = () => {
     finalOperation.current = operation;
   };
 
+  const calculate = () => {
+    const num1 = Number(number);
+    const num2 = Number(prevNumber);
+
+    if (num1 === 0 && num2 === 0) {
+      return;
+    }
+
+    switch (finalOperation.current) {
+      case OPERATORS.PLUS:
+        setNumber(`${num1 + num2}`);
+        break;
+      case OPERATORS.MINUS:
+        setNumber(`${num2 - num1}`);
+        break;
+      case OPERATORS.MULTIPLY:
+        setNumber(`${num1 * num2}`);
+        break;
+      case OPERATORS.DIVIDE:
+        setNumber(`${num2 / num1}`);
+        break;
+    }
+
+    setPrevNumber('0');
+  };
+
   return (
     <View style={styles.calculatorContainer}>
       {prevNumber !== '0' && (
@@ -98,7 +124,7 @@ const CalculatorScreen = () => {
         <CalcButton
           text="/"
           bgColor="#FF9427"
-          action={changeNumberForPrevious}
+          action={() => btnOperation(OPERATORS.DIVIDE)}
         />
       </View>
 
@@ -138,11 +164,7 @@ const CalculatorScreen = () => {
       <View style={styles.row}>
         <CalcButton text="0" action={buildNumber} wide />
         <CalcButton text="." action={buildNumber} />
-        <CalcButton
-          text="/"
-          bgColor="#FF9427"
-          action={() => btnOperation(OPERATORS.DIVIDE)}
-        />
+        <CalcButton text="=" bgColor="#FF9427" action={calculate} />
       </View>
     </View>
   );
